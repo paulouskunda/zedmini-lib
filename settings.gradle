@@ -1,0 +1,3 @@
+include ':ZedEditOptions'
+include ':app'
+rootProject.name = "ZedMiniLibrary"
