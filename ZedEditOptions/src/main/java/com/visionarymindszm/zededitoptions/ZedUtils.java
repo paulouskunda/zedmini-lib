@@ -1,16 +1,22 @@
 package com.visionarymindszm.zededitoptions;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
+
+import java.util.Calendar;
 
 /**
  * @author Paul Kunda
  * @since 2021
  * @version 0.1.0
- * This class is a Util tool to help you have a access to the Zambian Districts and Provinces without having to recreate then
+ * This class is a Util tool to help you have a access to the most common dialogs without having to recreate then
  */
 public class ZedUtils {
     // province array
@@ -80,5 +86,36 @@ public class ZedUtils {
         }
         return new String[0];
     }
+
+    /**
+     *
+     * @param callingContext : Activity (AppCompact) or Fragment that is current
+     * @param requestingView: View that was passed, casting this view to two possible instances
+     */
+    public static void pickDate(Context callingContext, final View requestingView) {
+        Calendar calendar = Calendar.getInstance();
+        int day,  month, year;
+
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        month = calendar.get(Calendar.MONTH);
+        year = calendar.get(Calendar.YEAR);
+
+
+        new DatePickerDialog(callingContext, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int yearInner, int monthInner, int dayInner) {
+                String setMeUp = ""+dayInner+"/"+(monthInner+1)+"/"+yearInner;
+
+                if (requestingView instanceof EditText){
+                    ((EditText) requestingView).setText(setMeUp);
+                }else if (requestingView instanceof TextView){
+                    ((TextView) requestingView).setText(setMeUp);
+                }
+
+            }
+        }, year, month, day)
+                .show();
+    }
+
 
 }
