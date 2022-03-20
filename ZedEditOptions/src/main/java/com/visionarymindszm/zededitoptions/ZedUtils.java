@@ -21,7 +21,7 @@ import java.util.Calendar;
 public class ZedUtils {
     // province array
     public static final String[] PROVINCES = {"Central", "Copperbelt", "Eastern", "Luapula",
-            "Lusaka", "Muchinga", "Northern", "North_Western", "Southern", "Western"};
+            "Lusaka", "Muchinga", "Northern", "NorthWestern", "Southern", "Western"};
 
     // districts Array
     public static final String[] Central = {"Chibombo","Chisamba","Chitambo","Kabwe","Kapiri-Mposhi","Luano","Mkushi","Mumbwa","Ngabwe","Serenje","Itezhi-Tezhi"};
@@ -30,7 +30,7 @@ public class ZedUtils {
     public static final String[] Luapula = {"Chiengi","Chifunabuli","Chipili","Chembe","Kawambwa","Lunga","Mansa","Milenge","Mwansabobwe","Mwense","Nchelenge","Samfya"};
     public static final String[] Lusaka = {"Chilanga","Chirundu","Chongwe","Kafue","Luangwa","Lusaka","Rufunsa","Shibuyunji"};
     public static final String[] Muchinga = {"Chama","Chilinda","Chinsali","Isoka","Kanchibiya","Lavushimanda","Mafinga","Mpika","Nakonde","Shiwa'Ngandu"};
-    public static final String[] North_Western = {"Chavuma","Ikelenge","Kabompo","Kalumbila","Kasempa","Manyinga","Mufumbwe","Mushindano","Mwinilunga","Solwezi","Zambezi"};
+    public static final String[] NorthWestern = {"Chavuma","Ikelenge","Kabompo","Kalumbila","Kasempa","Manyinga","Mufumbwe","Mushindano","Mwinilunga","Solwezi","Zambezi"};
     public static final String[] Northern = {"Chilubi","Kaputa","Kasama","Lunte","Lupososhi","Luwingu","Mbala","Mporokoso","Mpulungu","Mungwi","Nsama","Senga"};
     public static final String[] Southern = {"Chikankata","Choma","Gwembe","Kalomo","Kazungula","Livingstone","Mazabuka","Monze","Namwala","Pemba","Siavonga","Sinazongwe","Zimba"};
     public static final String[] Western = {"Kalabo","Kaoma","Limulungu","Luampa","Lukulu","Mitete","Mongu","Mulobezi","Mwandi","Nalolo","Nkeyama","Senanga","Sesheke","Shangombo","SikongoSioma"};
@@ -75,8 +75,8 @@ public class ZedUtils {
                 return Lusaka;
             case "Muchinga":
                 return Muchinga;
-            case "North_Western":
-                return North_Western;
+            case "NorthWestern":
+                return NorthWestern;
             case "Northern":
                 return Northern;
             case "Southern":
