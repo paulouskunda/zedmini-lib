@@ -1,39 +1,92 @@
-package com.visionarymindszm.zededitoptions;
+package com.visionarymindszm.zededitoptions
 
-import android.app.DatePickerDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.view.View;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.TextView;
-
-import androidx.appcompat.app.AlertDialog;
-
-import java.util.Calendar;
+import android.app.DatePickerDialog
+import android.content.Context
+import android.content.res.Resources
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.View
+import android.widget.EditText
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import java.util.*
 
 /**
  * @author Paul Kunda
  * @since 2021
- * @version 0.1.0
+ * @version 0.1.
  * This class is a Util tool to help you have a access to the most common dialogs without having to recreate then
  */
-public class ZedUtils {
+object ZedUtils {
     // province array
-    public static final String[] PROVINCES = {"Central", "Copperbelt", "Eastern", "Luapula",
-            "Lusaka", "Muchinga", "Northern", "NorthWestern", "Southern", "Western"};
+    val PROVINCES = arrayOf(
+        "Central", "Copperbelt", "Eastern", "Luapula",
+        "Lusaka", "Muchinga", "Northern", "NorthWestern", "Southern", "Western"
+    )
 
     // districts Array
-    public static final String[] Central = {"Chibombo","Chisamba","Chitambo","Kabwe","Kapiri-Mposhi","Luano","Mkushi","Mumbwa","Ngabwe","Serenje","Itezhi-Tezhi"};
-    public static final String[] Copperbelt = {"Chililabombwe","Chingola","Kalulushi","Kitwe","Luanshya","Lufwanyama","Masaiti","Mpongwe","Mufulira","Ndola","Chambishi"};
-    public static final String[] Eastern = {"Chadiza","Chasefu","Chipangali","Chipata","Kasenengwa","Katete","Lumezi","Lundazi","Mambwe","Lusangazi","Nyimba","Petauke","Sinda","Vubwi"};
-    public static final String[] Luapula = {"Chiengi","Chifunabuli","Chipili","Chembe","Kawambwa","Lunga","Mansa","Milenge","Mwansabobwe","Mwense","Nchelenge","Samfya"};
-    public static final String[] Lusaka = {"Chilanga","Chirundu","Chongwe","Kafue","Luangwa","Lusaka","Rufunsa","Shibuyunji"};
-    public static final String[] Muchinga = {"Chama","Chilinda","Chinsali","Isoka","Kanchibiya","Lavushimanda","Mafinga","Mpika","Nakonde","Shiwa'Ngandu"};
-    public static final String[] NorthWestern = {"Chavuma","Ikelenge","Kabompo","Kalumbila","Kasempa","Manyinga","Mufumbwe","Mushindano","Mwinilunga","Solwezi","Zambezi"};
-    public static final String[] Northern = {"Chilubi","Kaputa","Kasama","Lunte","Lupososhi","Luwingu","Mbala","Mporokoso","Mpulungu","Mungwi","Nsama","Senga"};
-    public static final String[] Southern = {"Chikankata","Choma","Gwembe","Kalomo","Kazungula","Livingstone","Mazabuka","Monze","Namwala","Pemba","Siavonga","Sinazongwe","Zimba"};
-    public static final String[] Western = {"Kalabo","Kaoma","Limulungu","Luampa","Lukulu","Mitete","Mongu","Mulobezi","Mwandi","Nalolo","Nkeyama","Senanga","Sesheke","Shangombo","SikongoSioma"};
+    private val central = arrayOf<String?>(
+        "Chibombo", "Chisamba", "Chitambo",
+        "Kabwe", "Kapiri-Mposhi", "Luano",
+        "Mkushi", "Mumbwa", "Ngabwe",
+        "Serenje", "Itezhi-Tezhi"
+    )
+    private val copperbelt = arrayOf<String?>(
+        "Chililabombwe","Chingola","Kalulushi",
+        "Kitwe","Luanshya","Lufwanyama",
+        "Masaiti","Mpongwe","Mufulira",
+        "Ndola","Chambishi"
+    )
+    private val eastern = arrayOf<String?>(
+        "Chadiza", "Chasefu", "Chipangali",
+        "Chipata", "Kasenengwa", "Katete",
+        "Lumezi", "Lundazi", "Mambwe",
+        "Lusangazi", "Nyimba", "Petauke",
+        "Sinda", "Vubwi"
+    )
+    private val luapula = arrayOf<String?>(
+        "Chiengi", "Chifunabuli", "Chipili",
+        "Chembe", "Kawambwa", "Lunga",
+        "Mansa", "Milenge", "Mwansabobwe",
+        "Mwense", "Nchelenge", "Samfya"
+    )
+    private val lusaka = arrayOf<String?>(
+        "Chilanga","Chirundu","Chongwe",
+        "Kafue",  "Luangwa", "Lusaka",
+        "Rufunsa","Shibuyunji"
+    )
+    private val muchinga = arrayOf<String?>(
+        "Chama", "Chilinda", "Chinsali",
+        "Isoka", "Kanchibiya", "Lavushimanda",
+        "Mafinga", "Mpika", "Nakonde",
+        "Shiwa'Ngandu"
+    )
+    private val northWestern = arrayOf<String?>(
+        "Chavuma", "Ikelenge", "Kabompo",
+        "Kalumbila", "Kasempa", "Manyinga",
+        "Mufumbwe", "Mushindano", "Mwinilunga",
+        "Solwezi", "Zambezi"
+    )
+    private val northern = arrayOf<String?>(
+        "Chilubi", "Kaputa", "Kasama",
+        "Lunte", "Lupososhi", "Luwingu",
+        "Mbala", "Mporokoso", "Mpulungu",
+        "Mungwi", "Nsama",  "Senga"
+    )
+    private val southern = arrayOf<String?>(
+        "Chikankata", "Choma", "Gwembe",
+        "Kalomo", "Kazungula", "Livingstone",
+        "Mazabuka", "Monze",  "Namwala",
+        "Pemba", "Siavonga", "Sinazongwe",
+        "Zimba"
+    )
+    private val western = arrayOf<String?>(
+        "Kalabo", "Kaoma", "Limulungu",
+        "Luampa", "Lukulu", "Mitete",
+        "Mongu", "Mulobezi", "Mwandi",
+        "Nalolo", "Nkeyama", "Senanga",
+        "Sesheke", "Shangombo", "SikongoSioma"
+    )
 
     /**
      *
@@ -43,17 +96,23 @@ public class ZedUtils {
      * @param optionsPassed: Array of the options to be viewed
      * @param fieldCalled: Edit
      */
-    public static void showDialog(final String title, final Context callingActivity_Fragment, final String[] optionsPassed, final EditText fieldCalled){
-        AlertDialog.Builder builder = new AlertDialog.Builder(callingActivity_Fragment);
-        builder.setTitle(title);
-        builder.setItems(optionsPassed, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
-                fieldCalled.setText(optionsPassed[item]);
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
-
+    fun showDialog(
+        title: String?,
+        callingActivity_Fragment: Context?,
+        optionsPassed: Array<String?>,
+        fieldCalled: EditText
+    ) {
+        val builder = AlertDialog.Builder(
+            callingActivity_Fragment!!
+        )
+        builder.setTitle(title)
+        builder.setItems(optionsPassed) { dialog, item ->
+            fieldCalled.setText(
+                optionsPassed[item]
+            )
+        }
+        val alert = builder.create()
+        alert.show()
     }
 
     /**
@@ -61,30 +120,20 @@ public class ZedUtils {
      * @param provinceName: A String of the selected province
      * @return Array of the Districts in the given province
      */
-    public static  String[] getDistrictArray (String provinceName){
-        switch (provinceName) {
-            case "Central":
-                return Central;
-            case "Copperbelt":
-                return Copperbelt;
-            case "Eastern":
-                return Eastern;
-            case "Luapula":
-                return Luapula;
-            case "Lusaka":
-                return Lusaka;
-            case "Muchinga":
-                return Muchinga;
-            case "NorthWestern":
-                return NorthWestern;
-            case "Northern":
-                return Northern;
-            case "Southern":
-                return Southern;
-            case "Western":
-                return Western;
+    fun getDistrictArray(provinceName: String?): Array<String?> {
+        when (provinceName) {
+            "Central" -> return central
+            "Copperbelt" -> return copperbelt
+            "Eastern" -> return eastern
+            "Luapula" -> return luapula
+            "Lusaka" -> return lusaka
+            "Muchinga" -> return muchinga
+            "NorthWestern" -> return northWestern
+            "Northern" -> return northern
+            "Southern" -> return southern
+            "Western" -> return western
         }
-        return new String[0];
+        return arrayOfNulls(0)
     }
 
     /**
@@ -92,30 +141,54 @@ public class ZedUtils {
      * @param callingContext : Activity (AppCompact) or Fragment that is current
      * @param requestingView: View that was passed, casting this view to two possible instances
      */
-    public static void pickDate(Context callingContext, final View requestingView) {
-        Calendar calendar = Calendar.getInstance();
-        int day,  month, year;
-
-        day = calendar.get(Calendar.DAY_OF_MONTH);
-        month = calendar.get(Calendar.MONTH);
-        year = calendar.get(Calendar.YEAR);
-
-
-        new DatePickerDialog(callingContext, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int yearInner, int monthInner, int dayInner) {
-                String setMeUp = ""+dayInner+"/"+(monthInner+1)+"/"+yearInner;
-
-                if (requestingView instanceof EditText){
-                    ((EditText) requestingView).setText(setMeUp);
-                }else if (requestingView instanceof TextView){
-                    ((TextView) requestingView).setText(setMeUp);
-                }
-
+    fun pickDate(callingContext: Context?, requestingView: View?) {
+        val calendar = Calendar.getInstance()
+        val day: Int = calendar[Calendar.DAY_OF_MONTH]
+        val month: Int = calendar[Calendar.MONTH]
+        val year: Int = calendar[Calendar.YEAR]
+        DatePickerDialog(callingContext!!, { datePicker, yearInner, monthInner, dayInner ->
+            val setMeUp = "" + dayInner + "/" + (monthInner + 1) + "/" + yearInner
+            if (requestingView is EditText) {
+                requestingView.setText(setMeUp)
+            } else if (requestingView is TextView) {
+                requestingView.text = setMeUp
             }
         }, year, month, day)
-                .show();
+            .show()
     }
 
+    fun validateEditFields(resources: Resources, inputFields: Array<EditText>): Boolean {
+        inputFields.forEach { currentField ->
+            if(currentField.text.toString().isEmpty()){
+                currentField.error = "${resources.getResourceEntryName(currentField.id)} can't be Empty"
+                return false
+            }
+        }
+        return true
+    }
 
+    fun nrcValidation(nrcEditText: EditText){
+        nrcEditText.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(s: Editable?) { }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val nrcText = nrcEditText.text.toString()
+                if(nrcText.length == 9){
+                    nrcEditText.setText(formatNrc(nrcText))
+                }
+            }
+        })
+    }
+
+    private fun formatNrc(unFormattedNrc: String): String {
+        val upperBoundCharacters: String = unFormattedNrc.substring(0, 6)
+        val getTheLastCharacters: String = unFormattedNrc.substring(6, 8)
+        val stringBuilder = StringBuilder()
+        return stringBuilder.append(upperBoundCharacters)
+            .append("/").append(getTheLastCharacters).append("/")
+            .append(unFormattedNrc[8]).toString()
+
+    }
 }
