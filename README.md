@@ -59,7 +59,56 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 ```
-
+```kotlin
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        val pickDistrictEditText = findViewById<EditText>(R.id.pickDistrictEditText)
+        val pickProvinceEditText = findViewById<EditText>(R.id.pickProvinceEditText)
+        val nrcNumber = findViewById<EditText>(R.id.nrcNumber)
+        val validateFields = findViewById<Button>(R.id.validateFields)
+        pickProvinceEditText.setOnClickListener { view: View? ->
+            showDialog(
+                "Select Province",
+                this@MainActivity,
+                PROVINCES,
+                pickProvinceEditText
+            )
+        }
+        pickDistrictEditText.setOnClickListener { view: View? ->
+            if (pickProvinceEditText.text.toString().isEmpty()) {
+                pickDistrictEditText.setText("Please select a province")
+            } else {
+                showDialog(
+                    "Select District From " + pickProvinceEditText.text.toString(),
+                    this@MainActivity,
+                    getDistrictArray(
+                        pickProvinceEditText.text.toString()
+                    ),
+                    pickDistrictEditText
+                )
+            }
+        }
+        nrcValidation(nrcNumber)
+        val editTexts = arrayOf(pickDistrictEditText, pickProvinceEditText, nrcNumber)
+        validateFields.setOnClickListener { v: View? ->
+            val isAllCool =
+                validateEditFields(
+                    resources,
+                    editTexts
+                )
+            if (isAllCool) {
+                Toast.makeText(
+                    applicationContext,
+                    "All Good",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+}
+```
 ## Using Library to Pass your custom options
 ```java
       final String[] bloodGroups = {"A+", "B+", "O+", "AB+", "A-", "B-", "O-", "A-"};

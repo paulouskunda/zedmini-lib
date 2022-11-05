@@ -99,7 +99,7 @@ object ZedUtils {
     fun showDialog(
         title: String?,
         callingActivity_Fragment: Context?,
-        optionsPassed: Array<String?>,
+        optionsPassed: Array<String>,
         fieldCalled: EditText
     ) {
         val builder = AlertDialog.Builder(
